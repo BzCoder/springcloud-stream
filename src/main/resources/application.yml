@@ -9,8 +9,9 @@ spring:
   cloud:
     stream:
       bindings:
-       input :
-        group : group1
-        content-type : application/json
+       input:
+        group: group1
+        content-type: application/json
+        destination: myEx
 server:
   port: 8081

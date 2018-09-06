@@ -24,7 +24,7 @@ public class StreamReceiver {
         log.info("process: StreamReceiver:{}",message);
         return "我是回执";
     }
-    //@StreamListener(StreamClient.input)
+    //@StreamListener(Processor.OUTPUT)
     //public void process1(Person person)
     //{
     //    System.out.println(person);
