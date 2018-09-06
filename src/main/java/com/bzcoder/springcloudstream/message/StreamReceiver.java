@@ -1,9 +1,10 @@
 package com.bzcoder.springcloudstream.message;
 
-import com.bzcoder.springcloudstream.message.Entity.Person;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.cloud.stream.messaging.Processor;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,25 +12,26 @@ import org.springframework.stereotype.Component;
  * @date 2018/9/3
  */
 @Component
-@EnableBinding(StreamClient.class)
+@EnableBinding(Processor.class)
 @Slf4j
 public class StreamReceiver {
 
-    @StreamListener(StreamClient.output)
-    //@SendTo(StreamClient.input2)
-    public void process(String message)
+    @StreamListener(Processor.OUTPUT)
+    @SendTo(Processor.INPUT)
+    public String process(String message)
     {
         System.out.println(message);
         log.info("process: StreamReceiver:{}",message);
+        return "我是回执";
     }
-    @StreamListener(StreamClient.output)
-    public void process1(Person person)
-    {
-        System.out.println(person);
-        log.info("process1: StreamReceiver:{}",person);
-    }
+    //@StreamListener(StreamClient.input)
+    //public void process1(Person person)
+    //{
+    //    System.out.println(person);
+    //    log.info("process1: StreamReceiver:{}",person);
+    //}
 
-    @StreamListener(StreamClient.input2)
+    @StreamListener(Processor.INPUT)
     public void process2(String message)
     {
         System.out.println(message);
